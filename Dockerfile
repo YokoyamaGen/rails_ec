@@ -16,6 +16,7 @@ RUN apt-get update -qq && \
   && apt-get clean \
   && rm -rf /var/lib/apt/lists/*
 
+ENV RAILS_MASTER_KEY ${RAILS_MASTER_KEY}
 RUN mkdir /myapp
 WORKDIR /myapp
 
