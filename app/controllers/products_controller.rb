@@ -7,6 +7,6 @@ class ProductsController < ApplicationController
 
   def show
     @product = Product.find_by!(id: params[:id])
-    @related_products = Product.where(category: @product.category).where.not(id: @product.id).order(created_at: :DESC)
+    @related_products = Product.new_related(@product)
   end
 end

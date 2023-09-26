@@ -6,4 +6,6 @@ class Product < ApplicationRecord
   validates :category, presence: true
 
   has_one_attached :image
+
+  scope :new_related, -> (product){ where(category: product.category).where.not(id: product.id).order(created_at: :DESC) }
 end
