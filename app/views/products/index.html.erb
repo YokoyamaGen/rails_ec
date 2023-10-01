@@ -13,7 +13,7 @@
         <div class="col mb-5">
           <div class="card h-100">
             <!-- Product image-->
-            <%= link_to image_tag(product.image, class:"card-img-top img-thumbnail"), product_path(product.id) %>
+            <%= link_to image_tag(product.decorate.display_image, class:"card-img-top img-thumbnail"), product_path(product.id) %>
             <!-- Product details-->
             <div class="card-body p-4">
               <div class="text-center">
