@@ -6,6 +6,6 @@ Rails.application.routes.draw do
   resources :products, only: %i[index show]
 
   namespace :admin do
-    resources :products
+    resources :products, except: [:show]
   end
 end
