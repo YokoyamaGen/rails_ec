@@ -7,7 +7,7 @@ class ProductDecorator < ApplicationDecorator
     if object.image.attached?
       object.image
     else
-      'noimage'
+      'noimage.jpg'
     end
   end
 
