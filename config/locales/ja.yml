@@ -1,0 +1,14 @@
+# 日本語化テンプレ
+ja:
+  activerecord:
+    models:
+      product: 商品
+    attributes:
+      product:
+        name: 名前
+        price: 値段
+        description: 説明
+        category: 分類
+        created_at: 作成日
+        updated_at: 更新日
+        image: 画像

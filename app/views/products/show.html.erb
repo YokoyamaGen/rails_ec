@@ -2,7 +2,7 @@
 <section class="py-5">
   <div class="container px-4 px-lg-5 my-5">
     <div class="row gx-4 gx-lg-5 align-items-center">
-      <div class="col-md-6"><%= image_tag(@product.image, class:"card-img-top mb-5 mb-md-0") %></div>
+      <div class="col-md-6"><%= image_tag(@product.decorate.display_image, class:"card-img-top mb-5 mb-md-0") %></div>
       <div class="col-md-6">
         <div class="small mb-1">カテゴリ: <%= @product.category %></div>
         <h1 class="display-5 fw-bolder"><%= @product.name %></h1>
@@ -30,7 +30,7 @@
         <div class="col mb-5">
           <div class="card h-100">
             <!-- Product image-->
-            <%= link_to image_tag(related_product.image, class:"card-img-top img-thumbnail"), product_path(related_product.id) %>
+            <%= link_to image_tag(related_product.decorate.display_image, class:"card-img-top img-thumbnail"), product_path(related_product.id) %>
             <!-- Product details-->
             <div class="card-body p-4">
               <div class="text-center">
