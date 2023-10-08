@@ -12,3 +12,8 @@ ja:
         created_at: 作成日
         updated_at: 更新日
         image: 画像
+  number:
+    currency:
+      format:
+        format: "%u%n"
+        unit: "¥"
