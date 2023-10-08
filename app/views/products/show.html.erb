@@ -1,22 +1,23 @@
 <!-- Product section-->
 <section class="py-5">
   <div class="container px-4 px-lg-5 my-5">
+    <%= render partial: 'shared/flash' %>
     <div class="row gx-4 gx-lg-5 align-items-center">
       <div class="col-md-6"><%= image_tag(@product.decorate.display_image, class:"card-img-top mb-5 mb-md-0") %></div>
       <div class="col-md-6">
         <div class="small mb-1">カテゴリ: <%= @product.category %></div>
         <h1 class="display-5 fw-bolder"><%= @product.name %></h1>
         <div class="fs-5 mb-5">
-          <span><%= @product.price %>円</span>
+          <span><%= number_to_currency(@product.price) %></span>
         </div>
         <p class="lead"><%= @product.description %></p>
-        <div class="d-flex">
-          <input class="form-control text-center me-3" id="inputQuantity" type="num" value="1" style="max-width: 3rem" />
-          <button class="btn btn-outline-dark flex-shrink-0" type="button">
+        <%= form_with model: @cart, url: product_carts_path(@product.id), data: { turbo: false }, class: "d-flex" do |form| %>
+          <%= form.number_field :count, class: "form-control text-center me-3", min: 1, style: "max-width: 4rem", value: 1 %>
+          <%= button_tag type: "submit", class: "btn btn-outline-dark flex-shrink-0" do %>
             <i class="bi-cart-fill me-1"></i>
             カートに入れる
-          </button>
-        </div>
+          <% end %>
+        <% end %>
       </div>
     </div>
   </div>
@@ -37,12 +38,12 @@
                 <!-- Product name-->
                 <h5 class="fw-bolder"><%= link_to related_product.name, product_path(related_product.id), class: "text-decoration-none" %></h5>
                 <!-- Product price-->
-                <%= related_product.price %>円
+                <%= number_to_currency(related_product.price) %>
               </div>
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-              <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">View options</a></div>
+              <div class="text-center"><%= link_to "Add to cart", product_carts_path(related_product.id), data: { turbo_method: :post }, class: "btn btn-outline-dark mt-auto" %></div>
             </div>
           </div>
         </div>
