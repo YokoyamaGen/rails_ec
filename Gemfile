@@ -62,8 +62,11 @@ gem 'rails-i18n', '~> 7.0.0'
 
 gem 'draper'
 
+gem 'rack-user_agent'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
+  gem 'annotate'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
   gem 'factory_bot_rails'
   gem 'pry-byebug'
