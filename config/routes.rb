@@ -7,7 +7,7 @@ Rails.application.routes.draw do
     resource :carts, only: %i[create destroy], module: 'products'
   end
 
-  resources :checkouts, only: [:index]
+  resources :checkouts, only: [:new]
 
   namespace :admin do
     resources :products, except: [:show]
