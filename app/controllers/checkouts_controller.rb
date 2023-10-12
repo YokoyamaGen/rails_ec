@@ -2,6 +2,6 @@
 
 class CheckoutsController < ApplicationController
   def new
-    @user_carts = current_user.carts.includes(:product)
+    @user_carts = current_carts.includes(:product)
   end
 end
