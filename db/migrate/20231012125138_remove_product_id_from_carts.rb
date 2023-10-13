@@ -5,13 +5,13 @@ class RemoveProductIdFromCarts < ActiveRecord::Migration[7.0]
     reversible do |dir|
       change_table :carts, bulk: true do |t|
         dir.up do
-          t.remove :product_id, :bigint
-          t.remove :count, :integer
+          t.remove :product_id
+          t.remove :count
         end
 
         dir.down do
-          t.column :product_id
-          t.column :count
+          t.column :product_id, :bigint
+          t.column :count, :integer
         end
       end
     end
