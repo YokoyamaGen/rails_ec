@@ -5,21 +5,17 @@
 # Table name: carts
 #
 #  id         :bigint           not null, primary key
-#  count      :integer          not null
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  product_id :bigint           not null
-#
-# Indexes
-#
-#  index_carts_on_product_id  (product_id)
-#
-# Foreign Keys
-#
-#  fk_rails_...  (product_id => products.id)
 #
 class Cart < ApplicationRecord
-  belongs_to :product
+  has_many :items, dependent: :destroy
 
-  validates :count, presence: true
+  def add_item(product_id:, quantity:)
+    current_item = items.find_by(product_id:) || items.new(
+      product_id:, quantity: 0
+    )
+    current_item.quantity += quantity.to_i
+    current_item.save
+  end
 end

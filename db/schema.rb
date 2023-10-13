@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_10_122111) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_12_125428) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -43,11 +43,18 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_10_122111) do
   end
 
   create_table "carts", force: :cascade do |t|
-    t.bigint "product_id", null: false
-    t.integer "count", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["product_id"], name: "index_carts_on_product_id"
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.bigint "cart_id", null: false
+    t.bigint "product_id", null: false
+    t.integer "quantity"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_items_on_cart_id"
+    t.index ["product_id"], name: "index_items_on_product_id"
   end
 
   create_table "products", force: :cascade do |t|
@@ -69,5 +76,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_10_122111) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "carts", "products"
+  add_foreign_key "items", "carts"
+  add_foreign_key "items", "products"
 end
