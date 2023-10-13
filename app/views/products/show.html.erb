@@ -12,7 +12,7 @@
         </div>
         <p class="lead"><%= @product.description %></p>
         <%= form_with model: @cart, url: product_carts_path(@product.id), data: { turbo: false }, class: "d-flex" do |form| %>
-          <%= form.number_field :count, class: "form-control text-center me-3", min: 1, style: "max-width: 4rem", value: 1 %>
+          <%= form.number_field :quantity, class: "form-control text-center me-3", min: 1, style: "max-width: 4rem", value: 1 %>
           <%= button_tag type: "submit", class: "btn btn-outline-dark flex-shrink-0" do %>
             <i class="bi-cart-fill me-1"></i>
             カートに入れる
@@ -43,7 +43,7 @@
             </div>
             <!-- Product actions-->
             <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-              <div class="text-center"><%= link_to "Add to cart", product_carts_path(related_product.id, "cart":{"count":"1"}), data: { turbo_method: :post }, class: "btn btn-outline-dark mt-auto" %></div>
+              <div class="text-center"><%= link_to "Add to cart", product_carts_path(related_product.id, "cart":{"quantity":"1"}), data: { turbo_method: :post }, class: "btn btn-outline-dark mt-auto" %></div>
             </div>
           </div>
         </div>

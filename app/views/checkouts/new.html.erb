@@ -19,7 +19,7 @@
               </div>
               <div class="mx-1">
                 <div class="text-body-secondary mb-4"><%= number_to_currency(user_cart.product.price) %></div>
-                <div class="text-body-secondary text-nowrap mb-2">数量: <%= user_cart.count %></div>
+                <div class="text-body-secondary text-nowrap mb-2">数量: <%= user_cart.quantity %></div>
                 <%= link_to "削除", product_carts_path(user_cart.product.id), data: { turbo_method: :delete, turbo_confirm: '商品をカートから削除します。よろしいですか？' }, class: 'btn btn-danger text-nowrap' %>
               </div>
             </li>
