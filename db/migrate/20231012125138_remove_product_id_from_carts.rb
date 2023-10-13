@@ -10,8 +10,8 @@ class RemoveProductIdFromCarts < ActiveRecord::Migration[7.0]
         end
 
         dir.down do
-          t.column :product_id, :bigint
-          t.column :count, :integer
+          t.column :product_id
+          t.column :count
         end
       end
     end
