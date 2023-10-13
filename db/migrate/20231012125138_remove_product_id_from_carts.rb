@@ -2,9 +2,18 @@
 
 class RemoveProductIdFromCarts < ActiveRecord::Migration[7.0]
   def change
-    change_table :carts, bulk: true do |t|
-      t.remove_column :product_id, :bigint
-      t.remove_column :count, :integer
+    reversible do |dir|
+      change_table :carts, bulk: true do |t|
+        dir.up do
+          t.remove :product_id, :bigint
+          t.remove :count, :integer
+        end
+
+        dir.down do
+          t.column :product_id, :bigint
+          t.column :count, :integer
+        end
+      end
     end
   end
 end
