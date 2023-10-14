@@ -7,11 +7,11 @@
         <li class="nav-item"><%= link_to 'ホーム', root_path, class:"nav-link active" %></li>
       </ul>
       <form class="d-flex">
-        <button class="btn btn-outline-dark" type="submit">
+        <%= link_to new_checkout_path, class: "btn btn-outline-dark" do %>
           <i class="bi-cart-fill me-1"></i>
           カート
           <span class="badge bg-dark text-white ms-1 rounded-pill">0</span>
-        </button>
+        <% end %>
       </form>
     </div>
   </div>

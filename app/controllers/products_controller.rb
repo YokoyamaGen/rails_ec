@@ -8,5 +8,6 @@ class ProductsController < ApplicationController
   def show
     @product = Product.find_by!(id: params[:id])
     @related_products = Product.new_related(@product)
+    @cart = Cart.new
   end
 end
