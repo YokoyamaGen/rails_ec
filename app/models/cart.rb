@@ -10,6 +10,8 @@
 #
 class Cart < ApplicationRecord
   has_many :items, dependent: :destroy
+  has_many :checkouts, dependent: :destroy
+  has_many :products, through: :items
 
   def add_item(product_id:, quantity:)
     current_item = items.find_by(product_id:) || items.new(
