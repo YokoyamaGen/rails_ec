@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: checkouts
@@ -45,5 +47,4 @@ class Checkout < ApplicationRecord
   validates :credit_card_number, presence: true
   validates :expiration, presence: true
   validates :cvv, presence: true
-
 end
