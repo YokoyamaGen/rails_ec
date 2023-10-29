@@ -1,15 +1,46 @@
 # frozen_string_literal: true
 
 class CheckoutsController < ApplicationController
-  before_action :user_carts
+  before_action :user_carts, only: %i[new create]
+  before_action :basic_auth, only: %i[index show]
+  def index
+    @checkouts = current_cart.checkouts.includes(:checkout_products)
+  end
+
+  def show
+    @checkout_product = CheckoutProduct.find(params[:id])
+    @checkout = @checkout_product.checkout
+  end
 
   def new
     @checkout = Checkout.new
   end
 
   def create
+    @checkout = Checkout.new(checkout_params)
+    unless @checkout.save
+      render 'new', status: :unprocessable_entity
+      return
+    end
+
+    after_checkout_process
+  end
+
+  private
+
+  def checkout_params
+    params.require(:checkout).permit(:first_name, :last_name, :username, :address, :address2, :email, :country,
+                                     :prefecture_id, :zip, :is_same_address, :is_save, :name_on_card,
+                                     :credit_card_number, :expiration, :cvv).merge(cart_id: current_cart.id)
+  end
+
+  def user_carts
+    @user_carts = current_cart.items.includes(:product)
+    redirect_to products_path, flash: { danger: 'カートに商品を追加してください' } if @user_carts.empty?
+  end
+
+  def after_checkout_process
     ActiveRecord::Base.transaction do
-      @checkout = Checkout.create!(checkout_params)
       current_cart.items.each do |item|
         checkout_product = CheckoutProduct.create!(checkout_id: @checkout.id, name: item.product.name,
                                                    price: item.product.price, description: item.product.description,
@@ -23,16 +54,10 @@ class CheckoutsController < ApplicationController
     redirect_to new_checkout_path, flash: { error: e.message }
   end
 
-  private
-
-  def checkout_params
-    params.require(:checkout).permit(:first_name, :last_name, :username, :address, :address2, :email, :country, :state,
-                                     :zip, :is_same_address, :is_save, :name_on_card, :credit_card_number, :expiration,
-                                     :cvv).merge(cart_id: current_cart.id)
-  end
-
-  def user_carts
-    @user_carts = current_cart.items.includes(:product)
-    redirect_to products_path, flash: { danger: 'カートに商品を追加してください' } if @user_carts.empty?
+  def basic_auth
+    authenticate_or_request_with_http_basic do |user, password|
+      user == Rails.application.credentials.manage[:basic_auth_name] &&
+        password == Rails.application.credentials.manage[:basic_auth_password]
+    end
   end
 end
