@@ -60,6 +60,7 @@ gem 'aws-sdk-s3', require: false
 
 gem 'rails-i18n', '~> 7.0.0'
 
+gem 'active_hash'
 gem 'draper'
 
 group :development, :test do

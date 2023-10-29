@@ -1,5 +1,5 @@
 <div class="container my-5">
-  <%= render partial: 'shared/error_flash' %>
+  <%= render partial: 'shared/error_messages', locals: { product: @checkout } %>
   <main>
     <div class="py-5 text-center">
       <%= image_tag 'bootstrap-logo.svg', class: 'd-block mx-auto mb-4', size: "72x57" %>
@@ -89,8 +89,8 @@
               </div>
             </div>
             <div class="col-md-4">
-              <%= form.label :state, class: "form-label" %>
-              <%= form.select :state, {'東京都': 1, '大阪府': 2, '福岡県': 3}, {}, class: "form-select" %>
+              <%= form.label :prefecture_id, class: "form-label" %>
+              <%= form.collection_select(:prefecture_id, Prefecture.all, :id, :name, {include_blank: "---"}, {class:"form-select"} ) %>
               <div class="invalid-feedback">
                 Please provide a valid state.
               </div>

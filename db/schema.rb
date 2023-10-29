@@ -67,12 +67,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_075910) do
     t.string "address2"
     t.string "email"
     t.integer "country", null: false
-    t.integer "state", null: false
+    t.integer "prefecture_id", null: false
     t.string "zip", null: false
     t.boolean "is_same_address", default: false, null: false
     t.boolean "is_save", default: false, null: false
     t.string "name_on_card", null: false
-    t.integer "credit_card_number", null: false
+    t.string "credit_card_number", null: false
     t.string "expiration", null: false
     t.integer "cvv", null: false
     t.bigint "cart_id", null: false

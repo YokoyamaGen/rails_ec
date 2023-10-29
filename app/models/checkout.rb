@@ -8,7 +8,7 @@
 #  address            :string           not null
 #  address2           :string
 #  country            :integer          not null
-#  credit_card_number :integer          not null
+#  credit_card_number :string           not null
 #  cvv                :integer          not null
 #  email              :string
 #  expiration         :string           not null
@@ -17,12 +17,12 @@
 #  is_save            :boolean          default(FALSE), not null
 #  last_name          :string           not null
 #  name_on_card       :string           not null
-#  state              :integer          not null
 #  username           :string           not null
 #  zip                :string           not null
 #  created_at         :datetime         not null
 #  updated_at         :datetime         not null
 #  cart_id            :bigint           not null
+#  prefecture_id      :integer          not null
 #
 # Indexes
 #
@@ -35,16 +35,18 @@
 class Checkout < ApplicationRecord
   belongs_to :cart
   has_many :checkout_products, dependent: :destroy
+  extend ActiveHash::Associations::ActiveRecordExtensions
+  belongs_to :prefecture
 
   validates :first_name, presence: true
   validates :last_name, presence: true
   validates :username, presence: true
   validates :address, presence: true
   validates :country, presence: true
-  validates :state, presence: true
+  validates :prefecture_id, presence: true
   validates :zip, presence: true
   validates :name_on_card, presence: true
-  validates :credit_card_number, presence: true
+  validates :credit_card_number, presence: true, length: { minimum: 16 }
   validates :expiration, presence: true
   validates :cvv, presence: true
 end
