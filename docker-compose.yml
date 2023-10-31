@@ -38,7 +38,20 @@ services:
       - bundle:/usr/local/bundle
       - node_modules:/myapp/node_modules
     tty: true
+  mailcatcher:
+    image: schickling/mailcatcher
+    container_name: mailcatcher
+    ports:
+      - '1080:1080'
+      - '1025:1025'
+    networks:
+      - default
+      - rails_template_default 
 volumes:
   db:
   bundle:
   node_modules:
+
+networks:
+  rails_template_default :
+    external: true
