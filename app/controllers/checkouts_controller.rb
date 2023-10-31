@@ -4,7 +4,7 @@ class CheckoutsController < ApplicationController
   before_action :user_carts, only: %i[new create]
   before_action :basic_auth, only: %i[index show]
   def index
-    @checkouts = current_cart.checkouts.includes(:checkout_products)
+    @checkouts = current_cart.checkouts.includes(:checkout_products).order(created_at: :DESC)
   end
 
   def show
@@ -24,6 +24,8 @@ class CheckoutsController < ApplicationController
     end
 
     after_checkout_process
+    CheckoutMailer.creation_email(@checkout, current_cart.items).deliver_now
+    current_cart.items.destroy_all
   end
 
   private
@@ -47,7 +49,6 @@ class CheckoutsController < ApplicationController
                                                    category: item.product.category, quantity: item.quantity)
         checkout_product.image.attach(item.product.image.blob)
       end
-      current_cart.items.destroy_all
     end
     redirect_to products_path, flash: { success: '購入ありがとうございます' }
   rescue StandardError => e
