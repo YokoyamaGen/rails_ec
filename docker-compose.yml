@@ -54,4 +54,5 @@ volumes:
 
 networks:
   rails_template_default :
-    external: true
+    external:
+      name: rails_template_default
