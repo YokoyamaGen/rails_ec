@@ -19,6 +19,6 @@
 
 請求先住所： <%= @checkout.name_on_card %> <%= @checkout.prefecture.name %> <%= @checkout.address %> <%= @checkout.address2 %>
 
-クレジットカードへの請求 
+クレジットカードへの請求
 
 クレジットカード（下4けたが <%= @checkout.decorate.credit_card_number_part %>）:  <%= @checkout.created_at.to_s(:date) %> <%= number_to_currency(total_price(@checkout_products)) %>
