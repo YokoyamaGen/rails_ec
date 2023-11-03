@@ -23,7 +23,14 @@ class CheckoutsController < ApplicationController
       return
     end
 
-    after_checkout_process
+    begin
+      @checkout.create_checkout_product(current_cart)
+      redirect_to products_path, flash: { success: '購入ありがとうございます' }
+    rescue StandardError => e
+      redirect_to new_checkout_path, flash: { error: e.message }
+      return
+    end
+
     CheckoutMailer.creation_email(@checkout, current_cart.items).deliver_now
     current_cart.items.destroy_all
   end
@@ -39,20 +46,6 @@ class CheckoutsController < ApplicationController
   def user_carts
     @user_carts = current_cart.items.includes(:product)
     redirect_to products_path, flash: { danger: 'カートに商品を追加してください' } if @user_carts.empty?
-  end
-
-  def after_checkout_process
-    ActiveRecord::Base.transaction do
-      current_cart.items.each do |item|
-        checkout_product = CheckoutProduct.create!(checkout_id: @checkout.id, name: item.product.name,
-                                                   price: item.product.price, description: item.product.description,
-                                                   category: item.product.category, quantity: item.quantity)
-        checkout_product.image.attach(item.product.image.blob)
-      end
-    end
-    redirect_to products_path, flash: { success: '購入ありがとうございます' }
-  rescue StandardError => e
-    redirect_to new_checkout_path, flash: { error: e.message }
   end
 
   def basic_auth

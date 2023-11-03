@@ -26,4 +26,12 @@ class Item < ApplicationRecord
   belongs_to :product
 
   validates :quantity, presence: true
+
+  delegate :name, to: :product, prefix: true
+
+  delegate :price, to: :product, prefix: true
+
+  delegate :description, to: :product, prefix: true
+
+  delegate :category, to: :product, prefix: true
 end

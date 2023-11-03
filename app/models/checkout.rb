@@ -49,4 +49,15 @@ class Checkout < ApplicationRecord
   validates :credit_card_number, presence: true, length: { minimum: 16 }
   validates :expiration, presence: true
   validates :cvv, presence: true
+
+  def create_checkout_product(current_cart)
+    ActiveRecord::Base.transaction do
+      current_cart.items.each do |item|
+        checkout_product = CheckoutProduct.create!(checkout_id: id, name: item.product_name,
+                                                   price: item.product_price, description: item.product_description,
+                                                   category: item.product_category, quantity: item.quantity)
+        checkout_product.image.attach(item.product.image.blob)
+      end
+    end
+  end
 end
