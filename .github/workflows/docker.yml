@@ -16,7 +16,6 @@ jobs:
     - name: run htmlbeautifier on docker-compose
       run: |
         echo ${{ secrets.RAILS_MASTER_KEY }} > $GITHUB_WORKSPACE/config/master.key
-        docker network create rails_template_default
         docker-compose build
         docker-compose run --rm web bin/setup
         docker-compose run --rm web bin/htmlbeautifier
