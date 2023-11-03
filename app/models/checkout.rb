@@ -38,20 +38,23 @@ class Checkout < ApplicationRecord
   extend ActiveHash::Associations::ActiveRecordExtensions
   belongs_to :prefecture
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-  validates :username, presence: true
-  validates :address, presence: true
-  validates :country, presence: true
-  validates :prefecture_id, presence: true
-  validates :zip, presence: true
-  validates :name_on_card, presence: true
-  validates :credit_card_number, presence: true, length: { minimum: 16 }
-  validates :expiration, presence: true
-  validates :cvv, presence: true
+  with_options presence: true do
+    validates :first_name
+    validates :last_name
+    validates :username
+    validates :address
+    validates :country
+    validates :prefecture_id
+    validates :zip
+    validates :name_on_card
+    validates :credit_card_number, length: { minimum: 16 }
+    validates :expiration
+    validates :cvv
+  end
 
   def create_checkout_product(current_cart)
     ActiveRecord::Base.transaction do
+      save!
       current_cart.items.each do |item|
         checkout_product = CheckoutProduct.create!(checkout_id: id, name: item.product_name,
                                                    price: item.product_price, description: item.product_description,
