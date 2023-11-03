@@ -18,16 +18,16 @@ class CheckoutsController < ApplicationController
 
   def create
     @checkout = Checkout.new(checkout_params)
-    unless @checkout.save
-      render 'new', status: :unprocessable_entity
-      return
-    end
 
     begin
       @checkout.create_checkout_product(current_cart)
       redirect_to products_path, flash: { success: '購入ありがとうございます' }
     rescue StandardError => e
-      redirect_to new_checkout_path, flash: { error: e.message }
+      if @checkout.errors.present?
+        render 'new', status: :unprocessable_entity
+      else
+        redirect_to new_checkout_path, flash: { error: e.message }
+      end
       return
     end
 
