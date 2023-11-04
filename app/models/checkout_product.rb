@@ -23,10 +23,12 @@
 #  fk_rails_...  (checkout_id => checkouts.id)
 #
 class CheckoutProduct < ApplicationRecord
-  validates :name, presence: true
-  validates :price, presence: true
-  validates :category, presence: true
-  validates :quantity, presence: true
+  with_options presence: true do
+    validates :name
+    validates :price
+    validates :category
+    validates :quantity
+  end
 
   has_one_attached :image
   belongs_to :checkout

@@ -13,9 +13,11 @@
 #  updated_at  :datetime         not null
 #
 class Product < ApplicationRecord
-  validates :name, presence: true
-  validates :price, presence: true
-  validates :category, presence: true
+  with_options presence: true do
+    validates :name
+    validates :price
+    validates :category
+  end
 
   has_one_attached :image
   has_many :items, dependent: :destroy
