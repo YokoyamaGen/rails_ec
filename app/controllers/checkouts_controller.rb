@@ -20,7 +20,7 @@ class CheckoutsController < ApplicationController
     @checkout = Checkout.new(checkout_params)
 
     begin
-      create_checkout(@checkout)
+      create_checkout_with_checkout_product(@checkout)
       redirect_to products_path, flash: { success: '購入ありがとうございます' }
     rescue StandardError => e
       if @checkout.errors.present?
@@ -55,7 +55,7 @@ class CheckoutsController < ApplicationController
     end
   end
 
-  def create_checkout(checkout)
+  def create_checkout_with_checkout_product(checkout)
     ActiveRecord::Base.transaction do
       checkout.save!
       current_cart.items.each do |item|
