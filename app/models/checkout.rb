@@ -51,16 +51,4 @@ class Checkout < ApplicationRecord
     validates :expiration
     validates :cvv
   end
-
-  def create_checkout_product(current_cart)
-    ActiveRecord::Base.transaction do
-      save!
-      current_cart.items.each do |item|
-        checkout_product = CheckoutProduct.create!(checkout_id: id, name: item.product_name,
-                                                   price: item.product_price, description: item.product_description,
-                                                   category: item.product_category, quantity: item.quantity)
-        checkout_product.image.attach(item.product.image.blob)
-      end
-    end
-  end
 end

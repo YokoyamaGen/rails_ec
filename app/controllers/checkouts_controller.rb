@@ -20,7 +20,7 @@ class CheckoutsController < ApplicationController
     @checkout = Checkout.new(checkout_params)
 
     begin
-      @checkout.create_checkout_product(current_cart)
+      create_checkout(@checkout)
       redirect_to products_path, flash: { success: '購入ありがとうございます' }
     rescue StandardError => e
       if @checkout.errors.present?
@@ -52,6 +52,18 @@ class CheckoutsController < ApplicationController
     authenticate_or_request_with_http_basic do |user, password|
       user == Rails.application.credentials.manage[:basic_auth_name] &&
         password == Rails.application.credentials.manage[:basic_auth_password]
+    end
+  end
+
+  def create_checkout(checkout)
+    ActiveRecord::Base.transaction do
+      checkout.save!
+      current_cart.items.each do |item|
+        checkout_product = CheckoutProduct.create!(checkout_id: checkout.id, name: item.product_name,
+                                                   price: item.product_price, description: item.product_description,
+                                                   category: item.product_category, quantity: item.quantity)
+        checkout_product.image.attach(item.product.image.blob)
+      end
     end
   end
 end
