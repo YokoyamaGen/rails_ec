@@ -1,0 +1,24 @@
+<%= @checkout.decorate.display_name %> 様
+
+この度は1616shopをご利用いただきまして、誠にありがとうございます。
+
+<%= @checkout.created_at.to_s(:date) %> に発送済み
+
+<% @checkout_products.each do |checkout_product| %>
+注文商品: <%= checkout_product.quantity %>点  <%= checkout_product.product.name %>
+
+価格: <%= number_to_currency(price(checkout_product)) %>
+
+<% end %>
+
+お届け先住所： <%= @checkout.decorate.display_name %> <%= @checkout.prefecture.name %> <%= @checkout.address %> <%= @checkout.address2 %>
+
+支払い情報
+
+支払い方法： クレジットカード 下4桁 <%= @checkout.decorate.credit_card_number_part %>
+
+請求先住所： <%= @checkout.name_on_card %> <%= @checkout.prefecture.name %> <%= @checkout.address %> <%= @checkout.address2 %>
+
+クレジットカードへの請求
+
+クレジットカード（下4けたが <%= @checkout.decorate.credit_card_number_part %>）:  <%= @checkout.created_at.to_s(:date) %> <%= number_to_currency(total_price(@checkout_products)) %>

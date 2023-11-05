@@ -12,6 +12,21 @@ ja:
         created_at: 作成日
         updated_at: 更新日
         image: 画像
+      checkout:
+        first_name: 姓
+        last_name: 名
+        username: ユーザ名
+        email: メール
+        address: 住所
+        address2: 住所(任意)
+        country: 国
+        state: 都道府県
+        is_same_address: 配送先住所は請求先住所と同じ
+        is_save: 次回のためにこの情報を保存する
+        name_on_card: クレジットカード名義人
+        credit_card_number: カード番号
+        expiration: 有効期限
+        cvv: セキュリティコード
   number:
     currency:
       format:

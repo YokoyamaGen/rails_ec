@@ -1,0 +1,58 @@
+<section class="py-5">
+  <div class="container">
+    <p class="mt-5">注文日: <%= @checkout.created_at.to_s(:date) %></p>
+    <p class="fw-bold">ご請求額: <%= number_to_currency(@checkout_product.price) %></p>
+    <div class="card">
+      <div class="card-header bg-white text-center fw-bold">
+        <div><%= @checkout.created_at.to_s(:date) %> に発送済み</div>
+      </div>
+      <div class="card-body">
+        <div class="card-text d-flex justify-content-between">
+          <div>
+            <p class="fw-bold">注文商品</p>
+            <div class="d-flex">
+              <p><%= @checkout_product.quantity %>点</p>
+              <p class="ms-3"><%= @checkout_product.name %></p>
+            </div>
+          </div>
+          <div>
+            <p class="fw-bold">価格</p>
+            <p><%= number_to_currency(@checkout_product.decorate.total_price) %></p>
+          </div>
+        </div>
+      </div>
+      <div class="card-footer bg-white">
+        <p class="fw-bold">お届け先住所：</p>
+        <p><%= @checkout.decorate.display_name %></p>
+        <div class="d-flex">
+          <p><%= @checkout.prefecture.name %></p>
+          <p class="ms-2"><%= @checkout.address %></p>
+        </div>
+        <p><%= @checkout.address2 %></p>
+      </div>
+    </div>
+    <div class="card mt-5">
+      <div class="card-header bg-white text-center fw-bold">
+        <div>支払い情報</div>
+      </div>
+      <div class="card-body">
+        <p class="fw-bold">支払い方法：</p>
+        <p>クレジットカード 下4桁 <%= @checkout.decorate.credit_card_number_part %></p>
+        <p class="fw-bold">請求先住所：</p>
+        <p><%= @checkout.name_on_card %></p>
+        <div class="d-flex">
+          <p><%= @checkout.prefecture.name %></p>
+          <p class="ms-2"><%= @checkout.address %></p>
+        </div>
+        <p><%= @checkout.address2 %></p>
+      </div>
+      <div class="card-footer bg-white justify-content-between d-flex">
+        <p class="fw-bold">クレジットカードへの請求</p>
+        <div>
+          クレジットカード（下4けたが <%= @checkout.decorate.credit_card_number_part %>）:  <%= @checkout.created_at.to_s(:date) %>
+          <%= number_to_currency(@checkout_product.decorate.total_price) %>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

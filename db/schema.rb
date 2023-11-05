@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_12_125428) do
+ActiveRecord::Schema[7.0].define(version: 2023_10_15_075910) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -47,6 +47,40 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_125428) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "checkout_products", force: :cascade do |t|
+    t.string "name", null: false
+    t.integer "price", null: false
+    t.string "description"
+    t.string "category", null: false
+    t.integer "quantity", null: false
+    t.bigint "checkout_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["checkout_id"], name: "index_checkout_products_on_checkout_id"
+  end
+
+  create_table "checkouts", force: :cascade do |t|
+    t.string "first_name", null: false
+    t.string "last_name", null: false
+    t.string "username", null: false
+    t.string "address", null: false
+    t.string "address2"
+    t.string "email"
+    t.integer "country", null: false
+    t.integer "prefecture_id", null: false
+    t.string "zip", null: false
+    t.boolean "is_same_address", default: false, null: false
+    t.boolean "is_save", default: false, null: false
+    t.string "name_on_card", null: false
+    t.string "credit_card_number", null: false
+    t.string "expiration", null: false
+    t.integer "cvv", null: false
+    t.bigint "cart_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_checkouts_on_cart_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "product_id", null: false
@@ -76,6 +110,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_12_125428) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "checkout_products", "checkouts"
+  add_foreign_key "checkouts", "carts"
   add_foreign_key "items", "carts"
   add_foreign_key "items", "products"
 end

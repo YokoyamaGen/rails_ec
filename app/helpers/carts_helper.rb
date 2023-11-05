@@ -6,4 +6,8 @@ module CartsHelper
       sum + (user_cart.product.price * user_cart.quantity)
     end
   end
+
+  def price(user_cart)
+    user_cart.product.price * user_cart.quantity
+  end
 end

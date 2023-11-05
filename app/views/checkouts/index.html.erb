@@ -1,0 +1,36 @@
+<section class="py-5">
+  <div class="container my-4">
+    <div class="col-10 my-box mx-auto">
+      <h2>注文履歴</h2>
+      <% @checkouts.each do |checkout| %>
+        <% checkout.checkout_products.each do |checkout_product| %>
+          <div class="card mt-5">
+            <div class="card-header">
+              <table class="table table-borderless">
+                <tr>
+                  <th>注文日</th>
+                  <th>合計</th>
+                  <th>お届け先</th>
+                </tr>
+                <tr>
+                  <td><%= checkout.created_at.to_s(:date) %></td>
+                  <td><%= number_to_currency(checkout_product.decorate.total_price) %></td>
+                  <td><%= checkout.decorate.display_name %></td>
+                </tr>
+              </table>
+            </div>
+            <div class="card-body">
+              <div class="card-text d-flex">
+                <%= image_tag(checkout_product.decorate.display_image, class:"img-thumbnail") %>
+                <div class="ms-5 mt-5">
+                  <p><%= checkout_product.name %></p>
+                  <%= link_to "購入明細", checkout_path(checkout_product), class: 'btn btn-outline-dark' %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</section>
