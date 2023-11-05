@@ -18,21 +18,19 @@ class CheckoutsController < ApplicationController
 
   def create
     @checkout = Checkout.new(checkout_params)
-
-    begin
-      create_checkout_with_checkout_product(@checkout)
-      redirect_to products_path, flash: { success: '購入ありがとうございます' }
-    rescue StandardError => e
-      if @checkout.errors.present?
-        render 'new', status: :unprocessable_entity
-      else
-        redirect_to new_checkout_path, flash: { error: e.message }
-      end
-      return
+    ActiveRecord::Base.transaction do
+      @checkout.save!
+      current_cart.create_checkout_products!(@checkout.id)
     end
-
     CheckoutMailer.creation_email(@checkout, current_cart.items).deliver_now
     current_cart.items.destroy_all
+    redirect_to products_path, flash: { success: '購入ありがとうございます' }
+  rescue StandardError => e
+    if @checkout.errors.present?
+      render 'new', status: :unprocessable_entity
+    else
+      redirect_to new_checkout_path, flash: { error: e.message }
+    end
   end
 
   private
@@ -52,18 +50,6 @@ class CheckoutsController < ApplicationController
     authenticate_or_request_with_http_basic do |user, password|
       user == Rails.application.credentials.manage[:basic_auth_name] &&
         password == Rails.application.credentials.manage[:basic_auth_password]
-    end
-  end
-
-  def create_checkout_with_checkout_product(checkout)
-    ActiveRecord::Base.transaction do
-      checkout.save!
-      current_cart.items.each do |item|
-        checkout_product = CheckoutProduct.create!(checkout_id: checkout.id, name: item.product_name,
-                                                   price: item.product_price, description: item.product_description,
-                                                   category: item.product_category, quantity: item.quantity)
-        checkout_product.image.attach(item.product.image.blob)
-      end
     end
   end
 end

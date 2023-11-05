@@ -20,4 +20,13 @@ class Cart < ApplicationRecord
     current_item.quantity += quantity.to_i
     current_item.save
   end
+
+  def create_checkout_products!(checkout_id)
+    items.each do |item|
+      checkout_product = CheckoutProduct.create!(checkout_id:, name: item.product_name,
+                                                 price: item.product_price, description: item.product_description,
+                                                 category: item.product_category, quantity: item.quantity)
+      checkout_product.image.attach(item.product.image.blob)
+    end
+  end
 end
