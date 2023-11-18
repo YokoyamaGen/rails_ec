@@ -32,4 +32,5 @@ class CheckoutProduct < ApplicationRecord
 
   has_one_attached :image
   belongs_to :checkout
+  has_one :promotion_code, dependent: :nullify
 end

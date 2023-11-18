@@ -1,7 +1,7 @@
 <section class="py-5">
   <div class="container">
     <p class="mt-5">注文日: <%= @checkout.created_at.to_s(:date) %></p>
-    <p class="fw-bold">ご請求額: <%= number_to_currency(@checkout_product.price) %></p>
+    <p class="fw-bold">ご請求額: <%= number_to_currency(@checkout_product.decorate.total_price(@checkout_product.promotion_code)) %></p>
     <div class="card">
       <div class="card-header bg-white text-center fw-bold">
         <div><%= @checkout.created_at.to_s(:date) %> に発送済み</div>
@@ -17,7 +17,11 @@
           </div>
           <div>
             <p class="fw-bold">価格</p>
-            <p><%= number_to_currency(@checkout_product.decorate.total_price) %></p>
+            <p><%= number_to_currency(@checkout_product.decorate.calc_total_price) %></p>
+            <% if @checkout_product.promotion_code.present? %>
+              <p class="fw-bold">クーポンコード</p>
+              <p>-<%= number_to_currency(@checkout_product.promotion_code.discount_amount) %></p>
+            <% end %>
           </div>
         </div>
       </div>
@@ -50,7 +54,7 @@
         <p class="fw-bold">クレジットカードへの請求</p>
         <div>
           クレジットカード（下4けたが <%= @checkout.decorate.credit_card_number_part %>）:  <%= @checkout.created_at.to_s(:date) %>
-          <%= number_to_currency(@checkout_product.decorate.total_price) %>
+          <%= number_to_currency(@checkout_product.decorate.total_price(@checkout_product.promotion_code)) %>
         </div>
       </div>
     </div>

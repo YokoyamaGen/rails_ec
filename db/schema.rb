@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_10_15_075910) do
+ActiveRecord::Schema[7.0].define(version: 2023_11_12_013353) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -45,6 +45,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_075910) do
   create_table "carts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.boolean "is_promotion_code", default: false, null: false
   end
 
   create_table "checkout_products", force: :cascade do |t|
@@ -98,6 +99,17 @@ ActiveRecord::Schema[7.0].define(version: 2023_10_15_075910) do
     t.string "category", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "promotion_codes", force: :cascade do |t|
+    t.string "code", null: false
+    t.integer "discount_amount", null: false
+    t.bigint "cart_id"
+    t.bigint "checkout_product_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["cart_id"], name: "index_promotion_codes_on_cart_id"
+    t.index ["checkout_product_id"], name: "index_promotion_codes_on_checkout_product_id"
   end
 
   create_table "tasks", force: :cascade do |t|
