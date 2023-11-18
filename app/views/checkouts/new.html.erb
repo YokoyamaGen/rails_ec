@@ -23,17 +23,27 @@
               </div>
             </li>
           <% end %>
+          <% if @current_promotion_code %>
+            <li class="list-group-item d-flex justify-content-between bg-body-tertiar">
+              <div class="text-success">
+                <h6 class="my-0">クーポンコード</h6>
+              </div>
+              <span class="text-success">−<%= number_to_currency(@current_promotion_code.discount_amount) %></span>
+            </li>
+          <% end %>
           <li class="list-group-item d-flex justify-content-between">
             <span>小計</span>
-            <strong><%= number_to_currency(total_price(@user_carts)) %></strong>
+            <strong><%= number_to_currency(@current_cart.total_price(@current_promotion_code))%></strong>
           </li>
         </ul>
-        <form class="card p-2">
+        <%= form_with model: @promotion_code, class: "card p-2", data: { turbo_frame: "new_promotion_code" } do |form| %>
           <div class="input-group">
-            <input type="text" class="form-control" placeholder="Promo code">
-            <button type="submit" class="btn btn-secondary">Redeem</button>
+            <%= form.text_field :code, class: "form-control", placeholder: "クーポンコード" %>
+            <%= form.submit '適用', class: "btn btn-secondary" %>
           </div>
-        </form>
+        <% end %>
+        <div id="error_code">
+        </div>
       </div>
       <div class="col-md-7 col-lg-8">
         <h4 class="mb-3">請求先住所</h4>
