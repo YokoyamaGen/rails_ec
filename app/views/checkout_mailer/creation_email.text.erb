@@ -12,7 +12,7 @@
 <% end %>
 
 <% @checkout.checkout_products.each do |checkout_product| %>
-  <% if checkout_product&.promotion_code&.present? %>   
+  <% if checkout_product&.promotion_code&.present? %>
 クーポンコード: -<%= number_to_currency(checkout_product.promotion_code.discount_amount) %>
   <% end %>
 <% end %>
