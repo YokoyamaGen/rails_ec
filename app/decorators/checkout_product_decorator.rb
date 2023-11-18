@@ -11,7 +11,17 @@ class CheckoutProductDecorator < ApplicationDecorator
     end
   end
 
-  def total_price
+  def total_price(promotion_code)
+    total_price = calc_total_price
+    if promotion_code
+      discount_price = total_price - promotion_code.discount_amount
+      discount_price.negative? ? 0 : discount_price
+    else
+      total_price
+    end
+  end
+
+  def calc_total_price
     object.price * object.quantity
   end
   # Define presentation-specific methods here. Helpers are accessed through

@@ -4,11 +4,17 @@
 
 <%= @checkout.created_at.to_s(:date) %> に発送済み
 
-<% @checkout_products.each do |checkout_product| %>
-注文商品: <%= checkout_product.quantity %>点  <%= checkout_product.product.name %>
+<% @checkout.checkout_products.each do |checkout_product| %>
+注文商品: <%= checkout_product.quantity %>点  <%= checkout_product.name %>
 
 価格: <%= number_to_currency(price(checkout_product)) %>
 
+<% end %>
+
+<% @checkout.checkout_products.each do |checkout_product| %>
+  <% if checkout_product&.promotion_code&.present? %>   
+クーポンコード: -<%= number_to_currency(checkout_product.promotion_code.discount_amount) %>
+  <% end %>
 <% end %>
 
 お届け先住所： <%= @checkout.decorate.display_name %> <%= @checkout.prefecture.name %> <%= @checkout.address %> <%= @checkout.address2 %>
@@ -21,4 +27,4 @@
 
 クレジットカードへの請求
 
-クレジットカード（下4けたが <%= @checkout.decorate.credit_card_number_part %>）:  <%= @checkout.created_at.to_s(:date) %> <%= number_to_currency(total_price(@checkout_products)) %>
+クレジットカード（下4けたが <%= @checkout.decorate.credit_card_number_part %>）:  <%= @checkout.created_at.to_s(:date) %> <%= number_to_currency(total_price(@checkout.checkout_products)) %>

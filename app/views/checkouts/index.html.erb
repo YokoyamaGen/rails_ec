@@ -14,7 +14,7 @@
                 </tr>
                 <tr>
                   <td><%= checkout.created_at.to_s(:date) %></td>
-                  <td><%= number_to_currency(checkout_product.decorate.total_price) %></td>
+                  <td><%= number_to_currency(checkout_product.decorate.total_price(checkout_product.promotion_code)) %></td>
                   <td><%= checkout.decorate.display_name %></td>
                 </tr>
               </table>
