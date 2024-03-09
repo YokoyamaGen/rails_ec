@@ -11,10 +11,22 @@ railsでECサイトを作成しました。
 ## 機能
 
 - 商品一覧、詳細機能
+  ![demo](https://gyazo.com/a89d1d3848aee97c44569d08d7d159dc/raw)
+  
+  <br>
 - 商品管理機能
+  ![demo](https://gyazo.com/2a709862057a281b8829618be8ca4dd5/raw)
+
+  <br>
 - カート機能実装
+  ![demo](https://gyazo.com/23e09039123f71c112f299d479df0b94/raw)
+
+  <br>
 - チェックアウト機能実装
+  ![demo](https://gyazo.com/0cd1493b70020ae13fbf30b9bec53e3a/raw)
+  
 - プロモーションコード機能実装
+  ![demo](https://gyazo.com/f836d895bf73d23a859897d7b1dc5be1/raw)
 
 
 ## 改善点
