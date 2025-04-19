@@ -84,9 +84,10 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'web-console'
-  gem "rails-erd"
-  gem 'htmlbeautifier'
+  gem "rails-erd", require: false
+  gem 'htmlbeautifier', require: false
   gem 'erb_lint', require: false
+  gem 'lefthook', require: false
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
