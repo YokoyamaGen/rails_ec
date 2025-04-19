@@ -2,7 +2,7 @@ pre-commit:
   parallel: true
   commands:
     backend-erb-linter:
-      glob: "app/views/{profile,team}/**/*.html.erb"
+      glob: "app/views/**/*.html.erb"
       run: |
         script/format_erb.sh {staged_files}
         LINT_EXIT_CODE=$?
