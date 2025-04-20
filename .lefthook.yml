@@ -9,7 +9,7 @@ pre-commit:
         exit $LINT_EXIT_CODE
       stage_fixed: true
     eslint-linter:
-      glob: "app/javascript/controllers/**/*.js"
+      glob: "app/javascript/controllers/*.js"
       run: |
         echo "Staged files: {staged_files}"
         echo "Staged files: $STAGED_FILES"
