@@ -77,16 +77,16 @@ end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'erb_lint', require: false
   gem 'htmlbeautifier'
+  gem 'lefthook', require: false
   gem 'rails_best_practices'
+  gem 'rails-erd', require: false
   gem 'rubocop', require: false
   gem 'rubocop-hc', require: false, github: 'ihatov08/rubocop-hc'
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'web-console'
-  gem "rails-erd", require: false
-  gem 'erb_lint', require: false
-  gem 'lefthook', require: false
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
