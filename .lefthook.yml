@@ -1,0 +1,17 @@
+pre-commit:
+  parallel: true
+  commands:
+    backend-erb-linter:
+      glob: "app/views/**/*.html.erb"
+      run: |
+        docker-compose run --rm web bash -c "script/format_erb.sh {staged_files}"
+        LINT_EXIT_CODE=$?
+        exit $LINT_EXIT_CODE
+      stage_fixed: true
+    eslint-linter:
+      glob: "app/javascript/controllers/*.js"
+      run: |
+        docker-compose run --rm web bash /usr/local/bin/yarn eslint --fix {staged_files}
+        LINT_EXIT_CODE=$?
+        exit $LINT_EXIT_CODE
+      stage_fixed: true

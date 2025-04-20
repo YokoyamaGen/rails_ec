@@ -4,12 +4,13 @@
 #
 # Table name: items
 #
-#  id         :bigint           not null, primary key
-#  quantity   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  cart_id    :bigint           not null
-#  product_id :bigint           not null
+#  id           :bigint           not null, primary key
+#  lock_version :integer
+#  quantity     :integer
+#  created_at   :datetime         not null
+#  updated_at   :datetime         not null
+#  cart_id      :bigint           not null
+#  product_id   :bigint           not null
 #
 # Indexes
 #

@@ -12,7 +12,7 @@ railsでECサイトを作成しました。
 
 - 商品一覧、詳細機能
   ![demo](https://gyazo.com/a89d1d3848aee97c44569d08d7d159dc/raw)
-  
+
   <br>
 - 商品管理機能
   ![demo](https://gyazo.com/2a709862057a281b8829618be8ca4dd5/raw)
@@ -24,7 +24,7 @@ railsでECサイトを作成しました。
   <br>
 - チェックアウト機能実装
   ![demo](https://gyazo.com/0cd1493b70020ae13fbf30b9bec53e3a/raw)
-  
+
 - プロモーションコード機能実装
   ![demo](https://gyazo.com/f836d895bf73d23a859897d7b1dc5be1/raw)
 
@@ -79,3 +79,7 @@ erbのフォーマッターです。
 ```
 docker compose run --rm web bin/htmlbeautifier
 ```
+
+以下記事を参考にERBファイルがコミット対象だった場合、
+erb-lint・htmlbeautifierが実行される。
+https://buildersbox.corp-sansan.com/entry/2024/07/29/110000
