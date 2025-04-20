@@ -11,7 +11,8 @@ pre-commit:
     eslint-linter:
       glob: "app/javascript/controllers/**/*.js"
       run: |
-        yarn eslint --fix {staged_files}
+        echo "Staged files: {staged_files}"
+        docker-compose run --rm web bash /usr/local/bin/yarn eslint --fix {staged_files}
         LINT_EXIT_CODE=$?
         exit $LINT_EXIT_CODE
       stage_fixed: true
