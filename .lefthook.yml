@@ -4,7 +4,7 @@ pre-commit:
     backend-erb-linter:
       glob: "app/views/**/*.html.erb"
       run: |
-        script/format_erb.sh {staged_files}
+        docker-compose run --rm web bash -c "script/format_erb.sh {staged_files}"
         LINT_EXIT_CODE=$?
         echo "ERB Lint finished with exit code $LINT_EXIT_CODE."
         exit $LINT_EXIT_CODE
