@@ -85,7 +85,6 @@ group :development do
   gem 'rubocop-rspec', require: false
   gem 'web-console'
   gem "rails-erd", require: false
-  gem 'htmlbeautifier', require: false
   gem 'erb_lint', require: false
   gem 'lefthook', require: false
 
