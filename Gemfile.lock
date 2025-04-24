@@ -178,6 +178,18 @@ GEM
     jsbundling-rails (1.1.2)
       railties (>= 6.0.0)
     json (2.6.3)
+    kaminari (1.2.2)
+      activesupport (>= 4.1.0)
+      kaminari-actionview (= 1.2.2)
+      kaminari-activerecord (= 1.2.2)
+      kaminari-core (= 1.2.2)
+    kaminari-actionview (1.2.2)
+      actionview
+      kaminari-core (= 1.2.2)
+    kaminari-activerecord (1.2.2)
+      activerecord
+      kaminari-core (= 1.2.2)
+    kaminari-core (1.2.2)
     language_server-protocol (3.17.0.3)
     lefthook (1.11.10)
     loofah (2.21.3)
@@ -205,6 +217,8 @@ GEM
     net-smtp (0.3.3)
       net-protocol
     nio4r (2.5.9)
+    nokogiri (1.15.3-x86_64-darwin)
+      racc (~> 1.4)
     nokogiri (1.15.3-x86_64-linux)
       racc (~> 1.4)
     parallel (1.23.0)
@@ -381,6 +395,7 @@ GEM
     zeitwerk (2.6.8)
 
 PLATFORMS
+  x86_64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
@@ -398,6 +413,7 @@ DEPENDENCIES
   image_processing (>= 1.2)
   jbuilder
   jsbundling-rails
+  kaminari
   lefthook
   mini_magick
   pg (~> 1.1)
