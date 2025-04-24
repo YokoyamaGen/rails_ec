@@ -80,6 +80,7 @@ group :development do
   gem 'erb_lint', require: false
   gem 'htmlbeautifier'
   gem 'lefthook', require: false
+  gem 'rack-mini-profiler', require: false
   gem 'rails_best_practices'
   gem 'rails-erd', require: false
   gem 'rubocop', require: false
@@ -87,7 +88,6 @@ group :development do
   gem 'rubocop-rails', require: false
   gem 'rubocop-rspec', require: false
   gem 'web-console'
-  gem 'rack-mini-profiler', require: false
 
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
