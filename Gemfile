@@ -80,6 +80,7 @@ group :development do
   gem 'erb_lint', require: false
   gem 'htmlbeautifier'
   gem 'lefthook', require: false
+  gem 'rack-mini-profiler', require: false
   gem 'rails_best_practices'
   gem 'rails-erd', require: false
   gem 'rubocop', require: false
