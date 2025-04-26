@@ -35,7 +35,7 @@ class Cart < ApplicationRecord
   end
 
   def total_price(promotion_code)
-    total_price = items.includes(:product).inject(0) do |sum, user_cart|
+    total_price = items.eager_load(:product).inject(0) do |sum, user_cart|
       sum + (user_cart.product.price * user_cart.quantity)
     end
 
