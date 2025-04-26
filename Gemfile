@@ -87,6 +87,7 @@ end
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem 'erb_lint', require: false
+  gem 'faker'
   gem 'htmlbeautifier'
   gem 'lefthook', require: false
   gem 'rack-mini-profiler', require: false
