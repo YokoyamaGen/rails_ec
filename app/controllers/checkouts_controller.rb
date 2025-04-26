@@ -46,7 +46,7 @@ class CheckoutsController < ApplicationController
   end
 
   def user_carts
-    @user_carts = current_cart.items.includes(:product)
+    @user_carts = current_cart.items.eager_load(:product)
     redirect_to products_path, flash: { danger: 'カートに商品を追加してください' } if @user_carts.empty?
   end
 
