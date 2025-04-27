@@ -5,7 +5,10 @@ class CheckoutsController < ApplicationController
   before_action :basic_auth, only: %i[index show]
   before_action :set_promotion_code, only: %i[index new create]
   def index
-    @checkouts = current_cart.checkouts.preload(:checkout_products).order(created_at: :DESC)
+    @checkouts = current_cart.checkouts
+                             .select(:id, :created_at, :first_name, :last_name)
+                             .preload(:checkout_products)
+                             .order(created_at: :DESC)
   end
 
   def show
