@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+require 'bullet'
 
 require 'active_support/core_ext/integer/time'
 
