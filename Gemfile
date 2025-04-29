@@ -75,11 +75,20 @@ group :development, :test do
   gem 'pry-byebug'
   gem 'pry-rails'
   gem 'rspec-rails'
+
+  # For memory profiling
+  gem 'memory_profiler'
+
+  # For call-stack profiling flamegraphs
+  gem 'flamegraph'
+  gem 'stackprof'
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
+  gem 'bullet', require: false
   gem 'erb_lint', require: false
+  gem 'faker'
   gem 'htmlbeautifier'
   gem 'lefthook', require: false
   gem 'rack-mini-profiler', require: false
