@@ -2,7 +2,7 @@
 
 class ProductsController < ApplicationController
   def index
-    @products = Product.page(params[:page]).per(30)
+    @products = Product.preload(image_attachment: :blob).page(params[:page]).per(30)
   end
 
   def show
