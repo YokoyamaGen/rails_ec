@@ -2,6 +2,14 @@ require:
   - rubocop-rails
   - rubocop-rspec
   - rubocop-hc
+  - ./lib/custom_cops/inclusive_datetime_range.rb
+
+CustomCops/InclusiveDatetimeRange:
+  Enabled: true
+  Severity: warning
+  Include:
+    - 'app/**/*.rb'
+    - 'lib/**/*.rb'
 Style/Documentation:
   Enabled: false
 Metrics/MethodLength:
